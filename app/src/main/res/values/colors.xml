@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1562A6</color>
+    <color name="colorPrimaryDark">#114E85</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#FF80AB</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#e2e2e2</color>
+    <color name="dark_grey">#7e7e7e</color>
+    <color name="app_background_color">#f6f6f6</color>
+    <color name="color_333333">#333333</color>
+    <color name="opaque_back">#85000000</color>
+    <color name="opaque_back_high">#AEB8B9</color>
+    <color name="blue">#0066cc</color>
+    <color name="actionbar">#CCCCCC</color>
+    <color name="blue_light">#33B5E5</color>
+    <color name="actionbar_color">#C7CDCD</color>
+    <color name="Neon_Pink">#FF00CC</color>
+    <color name="Neon_Green">#FF0000</color>
+    <color name="Neon_Yellow">#F3F315</color>
+    <color name="Neon_Orange">#FF9933</color>
+    <color name="Neon_Red">#FF3300</color>
+    <color name="Neon_Purple">#B300FF</color>
+    <color name="Neon_Mint_Green">#4Cff00</color>
+    <color name="Neon_Blue">#3300FF</color>
+    <color name="transparent">#80000000</color>
+    <color name="trans_black">#99000000</color>
+    <color name="facebook">#3B5998</color>
+    <color name="twitter">#33CCFF</color>
+    <color name="linkedIn">#4875B4</color>
+    <color name="dashboard_green">#98CF2C</color>
+    <color name="dashboard_pink">#D74375</color>
+    <color name="dashboard_orange">#F57838</color>
+
+    <color name="purple">#9933CC</color>
+    <color name="green">#669900</color>
+    <color name="orange">#FF8800</color>
+    <color name="offwhite">#DDDDDD</color>
+    <color name="red">#FF0000</color>
+    <color name="app_theme_color">#CB4E4D</color>
+    <color name="reward_bg">#444444</color>
+
+    <color name="tab_menu1">#4EE8EF</color>
+    <color name="tab_menu2">#2AD9E1</color>
+    <color name="tab_menu3">#1DC8D0</color>
+    <color name="tab_menu4">#13B8BE</color>
+    <color name="tab_menu5">#11AAB0</color>
+    <color name="tab_menu6">#0C9F9D</color>
+
+    <color name="action_tab1">#505050</color>
+    <color name="action_tab2">#4DD7DE</color>
+    <color name="action_tab3">#1AD19B</color>
+
+
+    <color name="black_overlay">#66000000</color>
+
+</resources>
