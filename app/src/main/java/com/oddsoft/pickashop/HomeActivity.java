@@ -1,7 +1,5 @@
 package com.oddsoft.pickashop;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +45,8 @@ public class HomeActivity extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
     }
 
     @Override
@@ -71,6 +71,17 @@ public class HomeActivity extends AppCompatActivity
                 mTitle = getString(R.string.title_section1);
                 break;
             case 2:
+                mTitle = "OFFERS";
+                ContactFragment contactFragment1;
+                fr = frMng.findFragmentByTag(Constants.CONTACT_FRAGMENT_TAG);
+                if (fr != null) {
+                    contactFragment1 = (ContactFragment) fr;
+                } else {
+                    contactFragment1 = new ContactFragment();
+                }
+                setFragment(contactFragment1, Constants.CONTACT_FRAGMENT_TAG);
+                break;
+            case 3:
                 mTitle = getString(R.string.title_section2);
                 ContactFragment contactFragment;
                 fr = frMng.findFragmentByTag(Constants.CONTACT_FRAGMENT_TAG);
@@ -79,9 +90,9 @@ public class HomeActivity extends AppCompatActivity
                 } else {
                     contactFragment = new ContactFragment();
                 }
-                setFragment(contactFragment,Constants.CONTACT_FRAGMENT_TAG);
+                setFragment(contactFragment, Constants.CONTACT_FRAGMENT_TAG);
                 break;
-            case 3:
+            case 4:
                 mTitle = getString(R.string.title_section3);
                 FaqFragment faqFragment;
                 fr = frMng.findFragmentByTag(Constants.FAQ_FRAGMENT_TAG);

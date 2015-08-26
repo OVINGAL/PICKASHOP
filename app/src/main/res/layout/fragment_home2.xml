@@ -12,58 +12,68 @@
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:background="@color/white"
-            android:src="@drawable/top_image"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/search_for"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout_white_bg"
+            android:hint="Looking for"
+            android:padding="10dp"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/search_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/layout_white_bg"
+            android:hint="Location"
+            android:imeOptions="actionSearch"
             android:padding="10dp"
-            android:background="@color/white"
-            android:hint="place,city...."/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/location"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="Place,city..."
-                android:layout_height="wrap_content" />
-            <CheckBox
-                android:id="@+id/product"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="Shop,Product..."
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/search_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Search"/>
+            android:layout_marginTop="5dp"
+            android:background="@drawable/layout_red_bg"
+            android:text="Search"
+            android:textColor="@color/white" />
 
-        <android.support.v4.view.ViewPager
+        <TextView
             android:layout_width="match_parent"
-            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:text="POPULAR BRANDS"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/home_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
 
     </LinearLayout>
