@@ -150,6 +150,15 @@ public class HomeActivity extends AppCompatActivity
         ft.commit();
     }
 
+    public void setFragmentOthers(Fragment fr, String tag) {
+        FragmentManager frMng = getSupportFragmentManager();
+        FragmentTransaction ft = frMng.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.add(R.id.container, fr, tag);
+        ft.addToBackStack(tag);
+        ft.commit();
+    }
+
     private void initHomeFragment() {
         HomeFragment homeFragment;
         FragmentManager frMng = getSupportFragmentManager();

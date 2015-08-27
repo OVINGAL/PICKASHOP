@@ -11,6 +11,10 @@ import com.oddsoft.pickashop.R;
 
 public class FaqFragment extends Fragment {
 
+    public static FaqFragment newInstance() {
+        return new FaqFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

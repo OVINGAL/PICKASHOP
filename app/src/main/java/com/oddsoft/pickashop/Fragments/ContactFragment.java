@@ -11,6 +11,10 @@ import com.oddsoft.pickashop.R;
 
 public class ContactFragment extends Fragment {
 
+    public static ContactFragment newInstance() {
+        return new ContactFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

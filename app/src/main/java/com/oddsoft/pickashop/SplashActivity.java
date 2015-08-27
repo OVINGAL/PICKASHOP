@@ -11,7 +11,7 @@ public class SplashActivity extends Activity {
     /**
      * Page display time
      */
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    private final int SPLASH_DISPLAY_LENGTH = 1500;
 
     /**
      * Flag to handle the handler

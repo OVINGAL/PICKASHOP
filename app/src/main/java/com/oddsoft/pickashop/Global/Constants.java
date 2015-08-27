@@ -5,7 +5,11 @@ package com.oddsoft.pickashop.Global;
  */
 public class Constants {
 
+    public static String SHARED_PREF_IS_LOGGED_IN = "IS LOGGED IN";
+
     public static String HOME_FRAGMENT_TAG = "Home Fragment Tag";
+
+    public static String COMPANY_HOME_FRAGMENT_TAG = "Company Home Fragment Tag";
 
     public static String CONTACT_FRAGMENT_TAG = "CONTACT Fragment Tag";
 
