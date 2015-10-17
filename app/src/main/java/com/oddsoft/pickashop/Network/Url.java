@@ -2,10 +2,10 @@ package com.oddsoft.pickashop.Network;
 
 public class Url {
 
-    public static String BASE_URL = "http://nephila.kriostechnologies.com:8080/mNephila/";
+    public static String BASE_URL = "http://pasmob.pickashop.com/";
 
     public static String LOGIN_URL = BASE_URL + "LoginServices?model=Login&";
-    public static String HOME_URL = BASE_URL + "ConversationsServices?model=CONVERSATIONS&";
+    public static String HOME_POPULAR_URL = BASE_URL + "pick_home.php?picktag=home";
     public static String NOTIFICATION_URL = BASE_URL + "ConversationsServices?model=CONVERSATIONS&";
     public static String PROFILE_URL = BASE_URL + "LoginServices?model=USERINFO&";
     public static String EVENTS_URL = BASE_URL + "MeetingServices?model=MEETING&";

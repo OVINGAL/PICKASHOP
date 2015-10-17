@@ -9,9 +9,14 @@ public class Popular {
 
     public String name;
 
+    public String companyType;
+
     public Popular(String name, String url) {
         this.name = name;
         this.imageUrl = url;
     }
 
+    public Popular() {
+
+    }
 }

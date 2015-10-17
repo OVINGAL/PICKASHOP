@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.oddsoft.pickashop.Adapter.PopularAdapter;
 import com.oddsoft.pickashop.Models.Popular;
 import com.oddsoft.pickashop.Network.Response;
+import com.oddsoft.pickashop.Network.Url;
 import com.oddsoft.pickashop.Network.WebServicesInterface;
 import com.oddsoft.pickashop.Network.webServiceFactory;
 import com.oddsoft.pickashop.R;
@@ -30,6 +32,7 @@ public class HomeFragment extends Fragment {
     int pos = 0, increament = 1;
     Handler handler;
     Runnable runnable;
+    PopularAdapter adapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
 
@@ -51,18 +54,18 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         populars = new ArrayList<Popular>();
-        populars.add(new Popular("Multiplex", "http://pickashop.com/mediafiles/comp-pht-4/basic/logo.jpg"));
-        populars.add(new Popular("World of Foot Wears", "http://pickashop.com/mediafiles/comp-c2e-2/basic/logo.jpg"));
-        populars.add(new Popular("Joyson Group", "http://pickashop.com/mediafiles/comp-d2z-1/basic/logo.jpg"));
-        populars.add(new Popular("Dress World", "http://pickashop.com/images/default/logo1.png"));
-        populars.add(new Popular("OddSoft", "http://pickashop.com/images/logo.png"));
-        populars.add(new Popular("Cabot", "http://pickashop.com/images/e2.jpg"));
+//        populars.add(new Popular("Multiplex", "http://pickashop.com/mediafiles/comp-pht-4/basic/logo.jpg"));
+//        populars.add(new Popular("World of Foot Wears", "http://pickashop.com/mediafiles/comp-c2e-2/basic/logo.jpg"));
+//        populars.add(new Popular("Joyson Group", "http://pickashop.com/mediafiles/comp-d2z-1/basic/logo.jpg"));
+//        populars.add(new Popular("Dress World", "http://pickashop.com/images/default/logo1.png"));
+//        populars.add(new Popular("OddSoft", "http://pickashop.com/images/logo.png"));
+//        populars.add(new Popular("Cabot", "http://pickashop.com/images/e2.jpg"));
 
-        PopularAdapter adapter = new PopularAdapter(populars, getActivity());
+        adapter = new PopularAdapter(populars, getActivity());
         mRecyclerView.setAdapter(adapter);
 
-//        getPopularBrands = new GetPopularBrands();
-//        getPopularBrands.execute(Url.BASE_URL);
+        getPopularBrands = new GetPopularBrands();
+        getPopularBrands.execute(Url.HOME_POPULAR_URL);
 
         handler = new Handler();
         runnable = new Runnable() {
@@ -114,12 +117,15 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Response<ArrayList<Popular>> response) {
             super.onPostExecute(response);
-            ArrayList<Popular> populars = response.getResult();
+
 
             if (response.isSuccess()) {
-
+                populars.removeAll(populars);
+                populars.clear();
+                populars.addAll(response.getResult());
+                adapter.notifyDataSetChanged();
             } else {
-
+                Toast.makeText(getActivity(),response.getServerMessage(),Toast.LENGTH_SHORT).show();
             }
 
         }
