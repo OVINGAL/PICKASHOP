@@ -27,4 +27,13 @@ public class WebServiceImp implements WebServicesInterface {
         Logger.i("serverresponse : " + serverResponse);
         return JsonParser.getPopularBrands(serverResponse);
     }
+
+    @Override
+    public Response<String> getSearchPossibleValues(String url) throws IOException, JSONException {
+        String serverResponse = RestClient.httpGet(url);
+        Logger.i("serverresponse : " + serverResponse);
+        Response<String> response = new Response<String>();
+        response.setResult(serverResponse);
+        return response;
+    }
 }

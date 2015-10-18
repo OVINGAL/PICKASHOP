@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.oddsoft.pickashop.Fragments.CompanyHomeFragment;
+import com.oddsoft.pickashop.Fragments.HomeFragment;
 import com.oddsoft.pickashop.Global.Constants;
 import com.oddsoft.pickashop.HomeActivity;
 import com.oddsoft.pickashop.Models.Popular;
@@ -73,6 +74,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
 
     public void startDetails(Context context, Popular model) {
+        HomeFragment.stopMove = false;
         CompanyHomeFragment mCompanyHomeFragment;
         FragmentManager frMng = ((HomeActivity) context).getSupportFragmentManager();
 

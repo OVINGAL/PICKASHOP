@@ -11,4 +11,6 @@ public interface WebServicesInterface {
 
     Response<ArrayList<Popular>> getPopularBrands(String url) throws IOException, JSONException;
 
+    Response<String> getSearchPossibleValues(String url) throws IOException, JSONException;
+
 }

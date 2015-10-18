@@ -2,8 +2,20 @@ package com.oddsoft.pickashop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.oddsoft.pickashop.Global.Constants;
+import com.oddsoft.pickashop.Global.Utils;
+import com.oddsoft.pickashop.Network.Response;
+import com.oddsoft.pickashop.Network.Url;
+import com.oddsoft.pickashop.Network.WebServicesInterface;
+import com.oddsoft.pickashop.Network.webServiceFactory;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 
 public class SplashActivity extends Activity {
@@ -50,7 +62,8 @@ public class SplashActivity extends Activity {
          * Run the code inside the runnable after the display time is finished
          * using a handler
          */
-        handler.postDelayed(mrun, SPLASH_DISPLAY_LENGTH);
+        new GetSearchKeys().execute(Url.HOME_SEARCH_SGN);
+//        handler.postDelayed(mrun, SPLASH_DISPLAY_LENGTH);
     }
 
     @Override
@@ -61,5 +74,43 @@ public class SplashActivity extends Activity {
          */
         mHandlerFlag = false;
         super.onBackPressed();
+    }
+
+    private class GetSearchKeys extends
+            AsyncTask<String, Void, Response<String>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Response<String> doInBackground(
+                String... params) {
+
+            Response<String> response = new Response<String>();
+            WebServicesInterface serviceImpl = webServiceFactory
+                    .getWebService(SplashActivity.this);
+            String url = params[0];
+            try {
+                response = serviceImpl.getSearchPossibleValues(url);
+            } catch (JSONException e) {
+                response.setThrowable(e);
+                e.printStackTrace();
+            } catch (IOException e) {
+                response.setThrowable(e);
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Response<String> response) {
+            super.onPostExecute(response);
+            if (mHandlerFlag) {
+                Utils.setStringSharedPreference(SplashActivity.this, Constants.SHARED_SEARCH_KEYS, response.getResult());
+                handler.postDelayed(mrun, SPLASH_DISPLAY_LENGTH);
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.oddsoft.pickashop.Adapter.PopularAdapter;
@@ -27,12 +28,14 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
+    public static boolean stopMove = true;
     GetPopularBrands getPopularBrands;
     ArrayList<Popular> populars;
     int pos = 0, increament = 1;
     Handler handler;
     Runnable runnable;
     PopularAdapter adapter;
+    ProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
 
@@ -64,6 +67,7 @@ public class HomeFragment extends Fragment {
         adapter = new PopularAdapter(populars, getActivity());
         mRecyclerView.setAdapter(adapter);
 
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
         getPopularBrands = new GetPopularBrands();
         getPopularBrands.execute(Url.HOME_POPULAR_URL);
 
@@ -71,19 +75,27 @@ public class HomeFragment extends Fragment {
         runnable = new Runnable() {
             @Override
             public void run() {
+                if (stopMove) {
                 if (pos == populars.size() - 1) {
                     increament = -1;
                 } else if (pos == 0) {
                     increament = 1;
                 }
                 pos = pos + increament;
-                mRecyclerView.smoothScrollToPosition(pos);
-                handler.postDelayed(runnable, 1500);
+                    mRecyclerView.smoothScrollToPosition(pos);
+                    handler.postDelayed(runnable, 1500);
+                }
             }
         };
         handler.postDelayed(runnable, 1500);
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        stopMove = true;
+        super.onResume();
     }
 
     private class GetPopularBrands extends
@@ -92,6 +104,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -117,7 +130,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Response<ArrayList<Popular>> response) {
             super.onPostExecute(response);
-
+            progressBar.setVisibility(View.GONE);
 
             if (response.isSuccess()) {
                 populars.removeAll(populars);
@@ -130,7 +143,4 @@ public class HomeFragment extends Fragment {
 
         }
     }
-
-
-
 }

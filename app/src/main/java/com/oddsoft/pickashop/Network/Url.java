@@ -6,6 +6,7 @@ public class Url {
 
     public static String LOGIN_URL = BASE_URL + "LoginServices?model=Login&";
     public static String HOME_POPULAR_URL = BASE_URL + "pick_home.php?picktag=home";
+    public static String HOME_SEARCH_SGN = BASE_URL + "pick_search.php?picktag=search_keywords";
     public static String NOTIFICATION_URL = BASE_URL + "ConversationsServices?model=CONVERSATIONS&";
     public static String PROFILE_URL = BASE_URL + "LoginServices?model=USERINFO&";
     public static String EVENTS_URL = BASE_URL + "MeetingServices?model=MEETING&";

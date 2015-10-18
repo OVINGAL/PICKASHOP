@@ -15,4 +15,6 @@ public class Constants {
 
     public static String FAQ_FRAGMENT_TAG = "FAQ Fragment Tag";
 
+    public static String SHARED_SEARCH_KEYS = "SEARCH KEYS";
+
 }
