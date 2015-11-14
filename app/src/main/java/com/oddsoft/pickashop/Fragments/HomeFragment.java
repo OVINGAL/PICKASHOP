@@ -9,11 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.oddsoft.pickashop.Adapter.AutoCompleteSuggestionAdapter;
 import com.oddsoft.pickashop.Adapter.PopularAdapter;
+import com.oddsoft.pickashop.Global.Constants;
+import com.oddsoft.pickashop.Global.Utils;
 import com.oddsoft.pickashop.Models.Popular;
+import com.oddsoft.pickashop.Models.SuggestionModel;
+import com.oddsoft.pickashop.Network.JsonParser;
 import com.oddsoft.pickashop.Network.Response;
 import com.oddsoft.pickashop.Network.Url;
 import com.oddsoft.pickashop.Network.WebServicesInterface;
@@ -36,6 +42,7 @@ public class HomeFragment extends Fragment {
     Runnable runnable;
     PopularAdapter adapter;
     ProgressBar progressBar;
+    AutoCompleteTextView location, product;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
 
@@ -89,6 +96,26 @@ public class HomeFragment extends Fragment {
         };
         handler.postDelayed(runnable, 1500);
 
+        location = (AutoCompleteTextView) rootView.findViewById(R.id.search_edit);
+        product = (AutoCompleteTextView) rootView.findViewById(R.id.search_for);
+
+        ArrayList<SuggestionModel> locations, categories;
+        locations = JsonParser.getLocations(Utils.getStringSharedPreference(getActivity(), Constants.SHARED_SEARCH_KEYS));
+        categories = JsonParser.getCategories(Utils.getStringSharedPreference(getActivity(), Constants.SHARED_SEARCH_KEYS));
+        AutoCompleteSuggestionAdapter adapter = new AutoCompleteSuggestionAdapter(getActivity(), locations);
+        AutoCompleteSuggestionAdapter adapterCategory = new AutoCompleteSuggestionAdapter(getActivity(), categories);
+        location.setThreshold(1);
+        product.setThreshold(1);
+
+        location.setAdapter(adapter);
+        product.setAdapter(adapterCategory);
+//
+
+
+//        String[] language ={"C","C++","Java",".NET","iPhone","Android","ASP.NET","PHP"};
+//        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,language);
+//        location.setAdapter(adapter2);
+//        product.setAdapter(adapter2);
         return rootView;
     }
 

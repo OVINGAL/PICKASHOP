@@ -1,6 +1,8 @@
 package com.oddsoft.pickashop.Network;
 
+import com.oddsoft.pickashop.HomeActivity;
 import com.oddsoft.pickashop.Models.Popular;
+import com.oddsoft.pickashop.Models.SuggestionModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +40,8 @@ public class JsonParser {
                     p.imageUrl = pop.getString("company_image");
                     populars.add(p);
                 }
+                JSONArray versionArray = json.getJSONArray("version");
+                HomeActivity.PLAYSTORE_VERSION = versionArray.getString(0);
             }
         }catch (JSONException e){
             result.setSuccess(false);
@@ -46,6 +50,49 @@ public class JsonParser {
         result.setResult(populars);
 
         return result;
+    }
+
+    public static ArrayList<SuggestionModel> getLocations(String response) {
+        ArrayList<SuggestionModel> locationsList = new ArrayList<SuggestionModel>();
+        try {
+            JSONObject json = new JSONObject(response);
+            JSONArray locationArray = json.getJSONArray("location");
+            for (int i = 0; i < locationArray.length(); i++) {
+                SuggestionModel model = new SuggestionModel();
+                JSONObject jsonObject = locationArray.getJSONObject(i);
+                model.header = jsonObject.getString("maincity_name");
+                model.subHeder = jsonObject.getString("city_name");
+                locationsList.add(model);
+            }
+        } catch (JSONException e) {
+
+        }
+        return locationsList;
+    }
+
+    public static ArrayList<SuggestionModel> getCategories(String response) {
+        ArrayList<SuggestionModel> locationsList = new ArrayList<SuggestionModel>();
+        try {
+            JSONObject json = new JSONObject(response);
+            JSONArray locationArray = json.getJSONArray("category");
+            for (int i = 0; i < locationArray.length(); i++) {
+                SuggestionModel model = new SuggestionModel();
+                JSONObject jsonObject = locationArray.getJSONObject(i);
+                model.header = jsonObject.getString("maincat_name");
+                model.subHeder = jsonObject.getString("subcat_name");
+                locationsList.add(model);
+            }
+            JSONArray shopArray = json.getJSONArray("shops");
+            for (int i = 0; i < shopArray.length(); i++) {
+                SuggestionModel model = new SuggestionModel();
+                model.header = "Shops";
+                model.subHeder = shopArray.getString(i);
+                locationsList.add(model);
+            }
+        } catch (JSONException e) {
+
+        }
+        return locationsList;
     }
 
 }

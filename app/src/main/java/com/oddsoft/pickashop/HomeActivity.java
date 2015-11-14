@@ -19,6 +19,7 @@ import com.oddsoft.pickashop.Global.Constants;
 public class HomeActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    public static String PLAYSTORE_VERSION = "";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
