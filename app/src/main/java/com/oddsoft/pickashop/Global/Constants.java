@@ -17,4 +17,6 @@ public class Constants {
 
     public static String SHARED_SEARCH_KEYS = "SEARCH KEYS";
 
+    public static String SEARCH_FRAGMENT_TAG = "Search Result Fragment Tag";
+
 }

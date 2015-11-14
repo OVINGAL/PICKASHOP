@@ -14,7 +14,7 @@ public class Url {
     public static String CONVERSATION_URL = BASE_URL + "ConversationsServices?model=CONVERSATIONS&";
     public static String ACTIONS_URL = BASE_URL + "LoginServices?model=CONVERSATIONS&";
     public static String CONTENT_URL = BASE_URL + "AlfrescoServices?model=ALFRESCO_JAVA_API&";
-    public static String SEARCH_URL = BASE_URL + "SearchServices?model=SEARCH&";
+    public static String SEARCH_URL = BASE_URL + "pick_search.php";
 
 
 }

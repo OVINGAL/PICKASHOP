@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +18,9 @@ import com.oddsoft.pickashop.Adapter.AutoCompleteSuggestionAdapter;
 import com.oddsoft.pickashop.Adapter.PopularAdapter;
 import com.oddsoft.pickashop.Global.Constants;
 import com.oddsoft.pickashop.Global.Utils;
+import com.oddsoft.pickashop.HomeActivity;
 import com.oddsoft.pickashop.Models.Popular;
+import com.oddsoft.pickashop.Models.SearchResult;
 import com.oddsoft.pickashop.Models.SuggestionModel;
 import com.oddsoft.pickashop.Network.JsonParser;
 import com.oddsoft.pickashop.Network.Response;
@@ -36,12 +39,13 @@ public class HomeFragment extends Fragment {
 
     public static boolean stopMove = true;
     GetPopularBrands getPopularBrands;
+    GetSearchResult getSearchResult;
     ArrayList<Popular> populars;
     int pos = 0, increament = 1;
     Handler handler;
     Runnable runnable;
     PopularAdapter adapter;
-    ProgressBar progressBar;
+    ProgressBar progressBar, progressBar2;
     AutoCompleteTextView location, product;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -75,6 +79,7 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
+        progressBar2 = (ProgressBar) rootView.findViewById(R.id.progress2);
         getPopularBrands = new GetPopularBrands();
         getPopularBrands.execute(Url.HOME_POPULAR_URL);
 
@@ -109,6 +114,19 @@ public class HomeFragment extends Fragment {
 
         location.setAdapter(adapter);
         product.setAdapter(adapterCategory);
+
+        rootView.findViewById(R.id.search_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (progressBar2.getVisibility() == View.GONE) {
+                    String url = Url.SEARCH_URL;
+                    String params = "picktag=search_result&" + "location=" + location.getText().toString()
+                            + "&keywords=" + product.getText().toString() + "&type=shops&page=1&perPage=10";
+                    getSearchResult = new GetSearchResult();
+                    getSearchResult.execute(url, params);
+                }
+            }
+        });
 //
 
 
@@ -123,6 +141,26 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         stopMove = true;
         super.onResume();
+    }
+
+    public void startSearchResult(ArrayList<SearchResult> results) {
+        SearchResultFragment mSearchResult;
+        FragmentManager frMng = getActivity().getSupportFragmentManager();
+
+//        Fragment fr = frMng.findFragmentByTag(Constants.SEARCH_FRAGMENT_TAG);
+//        if (fr != null) {
+//            mSearchResult = (SearchResultFragment) fr;
+//        } else {
+//            mSearchResult = new SearchResultFragment();
+//        }
+        mSearchResult = new SearchResultFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("RESULT", results);
+        bundle.putString("Location", location.getText().toString());
+        bundle.putString("Shop", product.getText().toString());
+        mSearchResult.setArguments(bundle);
+        ((HomeActivity) getActivity()).setFragmentOthers(mSearchResult, Constants.SEARCH_FRAGMENT_TAG);
+
     }
 
     private class GetPopularBrands extends
@@ -166,6 +204,54 @@ public class HomeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(),response.getServerMessage(),Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    private class GetSearchResult extends
+            AsyncTask<String, Void, Response<ArrayList<SearchResult>>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar2.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Response<ArrayList<SearchResult>> doInBackground(
+                String... params) {
+
+            Response<ArrayList<SearchResult>> response = new Response<ArrayList<SearchResult>>();
+            WebServicesInterface serviceImpl = webServiceFactory
+                    .getWebService(getActivity());
+            String url = params[0];
+            try {
+                response = serviceImpl.getSearchResult(url, params[1]);
+            } catch (JSONException e) {
+                response.setThrowable(e);
+                e.printStackTrace();
+            } catch (IOException e) {
+                response.setThrowable(e);
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Response<ArrayList<SearchResult>> response) {
+            super.onPostExecute(response);
+            progressBar2.setVisibility(View.GONE);
+
+            if (response.isSuccess()) {
+                ArrayList<SearchResult> results = response.getResult();
+                if (results.size() > 0) {
+                    startSearchResult(results);
+                } else {
+                    Toast.makeText(getActivity(), "No Result Found", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getActivity(), response.getServerMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }

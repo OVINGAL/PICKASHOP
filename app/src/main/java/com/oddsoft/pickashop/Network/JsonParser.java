@@ -2,6 +2,7 @@ package com.oddsoft.pickashop.Network;
 
 import com.oddsoft.pickashop.HomeActivity;
 import com.oddsoft.pickashop.Models.Popular;
+import com.oddsoft.pickashop.Models.SearchResult;
 import com.oddsoft.pickashop.Models.SuggestionModel;
 
 import org.json.JSONArray;
@@ -93,6 +94,32 @@ public class JsonParser {
 
         }
         return locationsList;
+    }
+
+    public static Response<ArrayList<SearchResult>> getSearchResult(String response) {
+        Response<ArrayList<SearchResult>> result = new Response<ArrayList<SearchResult>>();
+        ArrayList<SearchResult> locationsList = new ArrayList<SearchResult>();
+        try {
+            JSONObject json = new JSONObject(response);
+            JSONArray locationArray = json.getJSONArray("searchshops");
+            for (int i = 0; i < locationArray.length(); i++) {
+                SearchResult model = new SearchResult();
+                JSONObject jsonObject = locationArray.getJSONObject(i);
+                model.company_name = jsonObject.getString("company_name");
+                model.company_id = jsonObject.getString("company_id");
+                model.company_image = jsonObject.getString("company_image");
+                model.company_type = jsonObject.getString("company_type");
+                model.company_city = jsonObject.getString("company_city");
+                model.company_phone1 = jsonObject.getString("company_phone1");
+                model.company_phone2 = jsonObject.getString("company_phone2");
+                locationsList.add(model);
+            }
+            result.setResult(locationsList);
+        } catch (JSONException e) {
+            result.setSuccess(false);
+            result.setServerMessage(e.getMessage());
+        }
+        return result;
     }
 
 }

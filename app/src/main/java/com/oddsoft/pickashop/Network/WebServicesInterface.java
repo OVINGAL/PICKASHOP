@@ -1,6 +1,7 @@
 package com.oddsoft.pickashop.Network;
 
 import com.oddsoft.pickashop.Models.Popular;
+import com.oddsoft.pickashop.Models.SearchResult;
 
 import org.json.JSONException;
 
@@ -12,5 +13,7 @@ public interface WebServicesInterface {
     Response<ArrayList<Popular>> getPopularBrands(String url) throws IOException, JSONException;
 
     Response<String> getSearchPossibleValues(String url) throws IOException, JSONException;
+
+    Response<ArrayList<SearchResult>> getSearchResult(String url, String params) throws IOException, JSONException;
 
 }

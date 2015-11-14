@@ -1,20 +1,16 @@
 package com.oddsoft.pickashop.Adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.oddsoft.pickashop.Fragments.CompanyHomeFragment;
 import com.oddsoft.pickashop.Fragments.HomeFragment;
-import com.oddsoft.pickashop.Global.Constants;
-import com.oddsoft.pickashop.HomeActivity;
 import com.oddsoft.pickashop.Models.Popular;
 import com.oddsoft.pickashop.R;
 
@@ -75,23 +71,23 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
     public void startDetails(Context context, Popular model) {
         HomeFragment.stopMove = false;
-        CompanyHomeFragment mCompanyHomeFragment;
-        FragmentManager frMng = ((HomeActivity) context).getSupportFragmentManager();
-
-        Fragment fr = frMng.findFragmentByTag(Constants.COMPANY_HOME_FRAGMENT_TAG);
-        if (fr != null) {
-            mCompanyHomeFragment = (CompanyHomeFragment) fr;
-        } else {
-            mCompanyHomeFragment = new CompanyHomeFragment();
-        }
-        ((HomeActivity) context).setFragmentOthers(mCompanyHomeFragment, Constants.COMPANY_HOME_FRAGMENT_TAG);
+//        CompanyHomeFragment mCompanyHomeFragment;
+//        FragmentManager frMng = ((HomeActivity) context).getSupportFragmentManager();
+//
+//        Fragment fr = frMng.findFragmentByTag(Constants.COMPANY_HOME_FRAGMENT_TAG);
+//        if (fr != null) {
+//            mCompanyHomeFragment = (CompanyHomeFragment) fr;
+//        } else {
+//            mCompanyHomeFragment = new CompanyHomeFragment();
+//        }
+//        ((HomeActivity) context).setFragmentOthers(mCompanyHomeFragment, Constants.COMPANY_HOME_FRAGMENT_TAG);
 
     }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
 
         public TextView mName;
         public ImageView mProfileImg;
@@ -103,14 +99,14 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
             mListener = listener;
             mName = (TextView) v.findViewById(R.id.brand_name);
             mProfileImg = (ImageView) v.findViewById(R.id.brand_img);
-            v.setOnClickListener(this);
+            v.setOnTouchListener(this);
         }
 
         @Override
-        public void onClick(View view) {
+        public boolean onTouch(View v, MotionEvent event) {
             int itemPosition = getAdapterPosition();
-            mListener.onItemClick(view, itemPosition);
-//
+            mListener.onItemClick(v, itemPosition);
+            return false;
         }
 
         public interface IMyViewHolderClicks {

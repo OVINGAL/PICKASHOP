@@ -45,17 +45,31 @@
             android:padding="10dp"
             android:singleLine="true" />
 
-        <Button
-            android:id="@+id/search_button"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/layout_red_bg"
-            android:text="Search"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progress2"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/layout_red_bg"
+                android:text="Search"
+                android:textColor="@color/white" />
+        </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"

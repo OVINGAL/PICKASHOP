@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.oddsoft.pickashop.Global.Logger;
 import com.oddsoft.pickashop.Models.Popular;
+import com.oddsoft.pickashop.Models.SearchResult;
 
 import org.json.JSONException;
 
@@ -35,5 +36,12 @@ public class WebServiceImp implements WebServicesInterface {
         Response<String> response = new Response<String>();
         response.setResult(serverResponse);
         return response;
+    }
+
+    @Override
+    public Response<ArrayList<SearchResult>> getSearchResult(String url, String params) throws IOException, JSONException {
+        String serverResponse = RestClient.httpPost(url, params);
+        Logger.i("serverresponse : " + serverResponse);
+        return JsonParser.getSearchResult(serverResponse);
     }
 }
