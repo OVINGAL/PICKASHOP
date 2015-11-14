@@ -1,8 +1,10 @@
 package com.oddsoft.pickashop.Adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,14 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.oddsoft.pickashop.Fragments.CompanyHomeFragment;
 import com.oddsoft.pickashop.Global.Constants;
 import com.oddsoft.pickashop.HomeActivity;
+import com.oddsoft.pickashop.Models.CompanyDetails;
 import com.oddsoft.pickashop.Models.SearchResult;
+import com.oddsoft.pickashop.Network.Response;
+import com.oddsoft.pickashop.Network.Url;
+import com.oddsoft.pickashop.Network.WebServicesInterface;
+import com.oddsoft.pickashop.Network.webServiceFactory;
 import com.oddsoft.pickashop.R;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -58,7 +69,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     callIntent.setData(Uri.parse(m));
                     context.startActivity(callIntent);
                 } else {
-                    startDetails(context, results.get(pos));
+                    new GetCompDetails(results.get(pos)).execute(Url.COMP_URL, "picktag=basic_details&company_id=" + results.get(pos).company_id);
                 }
             }
         });
@@ -146,6 +157,61 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public interface IMyViewHolderClicks {
             void onItemClick(View view, int pos);
+        }
+    }
+
+    private class GetCompDetails extends
+            AsyncTask<String, Void, Response<CompanyDetails>> {
+        ProgressDialog dialog;
+        SearchResult model;
+
+        public GetCompDetails(SearchResult model) {
+            this.model = model;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            progressBar2.setVisibility(View.VISIBLE);
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Loading...");
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
+
+        @Override
+        protected Response<CompanyDetails> doInBackground(
+                String... params) {
+
+            Response<CompanyDetails> response = new Response<CompanyDetails>();
+            WebServicesInterface serviceImpl = webServiceFactory
+                    .getWebService(context);
+            String url = params[0];
+            try {
+                response = serviceImpl.getCompnyDetails(url, params[1]);
+            } catch (JSONException e) {
+                response.setThrowable(e);
+                e.printStackTrace();
+            } catch (IOException e) {
+                response.setThrowable(e);
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Response<CompanyDetails> response) {
+            super.onPostExecute(response);
+//            progressBar2.setVisibility(View.GONE);
+            dialog.dismiss();
+            if (response.isSuccess()) {
+                CompanyDetails results = response.getResult();
+                startDetails(context, model);
+            } else {
+                Toast.makeText(context, response.getServerMessage(), Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 

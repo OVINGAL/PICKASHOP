@@ -6,14 +6,19 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.oddsoft.pickashop.Adapter.CompanyViewPageAdapter;
+import com.oddsoft.pickashop.Models.SearchResult;
 import com.oddsoft.pickashop.R;
 import com.oddsoft.pickashop.Widgets.SlidingTabLayout;
 
 
 public class CompanyHomeFragment extends Fragment {
 
+    SearchResult mSearch;
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
 
@@ -21,6 +26,8 @@ public class CompanyHomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            mSearch = bundle.getParcelable("Selected");
         }
     }
 
@@ -36,8 +43,18 @@ public class CompanyHomeFragment extends Fragment {
 
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
-        mSlidingTabLayout.setDistributeEvenly(true);
+        mSlidingTabLayout.setDistributeEvenly(false);
         mSlidingTabLayout.setViewPager(mViewPager);
+        ImageView logo = (ImageView) rootView.findViewById(R.id.img_avathar_comp);
+        try {
+            Glide.with(getActivity()).load(mSearch.company_image)
+                    .error(R.drawable.logo)
+                    .into(logo);
+        } catch (IllegalArgumentException e) {
+
+        }
+        ((TextView) rootView.findViewById(R.id.comp_name_dt)).setText(mSearch.company_name);
+        ((TextView) rootView.findViewById(R.id.comp_city_dt)).setText(mSearch.company_city);
 
         return rootView;
     }

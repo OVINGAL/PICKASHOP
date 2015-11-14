@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/white"
+    android:background="@color/app_background_color"
     android:elevation="2dp"
     android:orientation="vertical"
     android:paddingBottom="5dp"
@@ -14,7 +14,7 @@
     <ImageView
         android:id="@+id/comp_img"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:layout_gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/logo" />

@@ -6,59 +6,65 @@
     android:orientation="vertical"
     tools:context="com.cabot.nephila.Activity.HomeActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/rl_TopBaner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="160dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_avathar_comp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_above="@+id/sliding_tabs"
+            android:background="@color/opaque_back"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp">
 
-            <ImageView
-                android:id="@+id/img_avathar_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:src="@drawable/logo" />
+            <TextView
+                android:id="@+id/comp_name_dt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Name"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/comp_city_dt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Location"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_user_name"
+        <com.oddsoft.pickashop.Widgets.SlidingTabLayout
+            android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Name"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Location"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:layout_alignParentBottom="true"
+            android:background="@color/opaque_back"
+            android:elevation="2dp" />
+    </RelativeLayout>
 
 
-    </LinearLayout>
-
-    <com.oddsoft.pickashop.Widgets.SlidingTabLayout
-        android:id="@+id/sliding_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue_light"
-        android:elevation="2dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

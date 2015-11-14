@@ -1,6 +1,7 @@
 package com.oddsoft.pickashop.Network;
 
 import com.oddsoft.pickashop.HomeActivity;
+import com.oddsoft.pickashop.Models.CompanyDetails;
 import com.oddsoft.pickashop.Models.Popular;
 import com.oddsoft.pickashop.Models.SearchResult;
 import com.oddsoft.pickashop.Models.SuggestionModel;
@@ -115,6 +116,48 @@ public class JsonParser {
                 locationsList.add(model);
             }
             result.setResult(locationsList);
+        } catch (JSONException e) {
+            result.setSuccess(false);
+            result.setServerMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    public static Response<CompanyDetails> getDetails(String response) {
+        Response<CompanyDetails> result = new Response<CompanyDetails>();
+        try {
+            JSONObject json = new JSONObject(response);
+            CompanyDetails model = new CompanyDetails();
+            JSONObject jsonObject = json.getJSONObject("basic");
+            model.company_name = jsonObject.getString("company_name");
+            model.company_id = jsonObject.getString("company_id");
+            model.about = jsonObject.getString("about");
+            model.company_type = jsonObject.getString("company_type");
+            model.workHour = jsonObject.getString("workhour");
+
+            jsonObject = json.getJSONObject("contact");
+            model.mail = jsonObject.getString("mail");
+            model.phone1 = jsonObject.getString("phone1");
+            model.phone2 = jsonObject.getString("phone2");
+            model.phone3 = jsonObject.getString("phone3");
+            model.fax1 = jsonObject.getString("fax1");
+            model.fax2 = jsonObject.getString("fax2");
+            model.toll1 = jsonObject.getString("toll1");
+            model.toll2 = jsonObject.getString("toll2");
+            model.website = jsonObject.getString("website");
+
+            jsonObject = json.getJSONObject("location");
+            model.building = jsonObject.getString("building");
+            model.streat = jsonObject.getString("street");
+            model.landmark = jsonObject.getString("landmark");
+            model.city = jsonObject.getString("city");
+            model.pincode = jsonObject.getString("pincode");
+            model.district = jsonObject.getString("district");
+            model.state = jsonObject.getString("state");
+            model.country = jsonObject.getString("country");
+
+            result.setResult(model);
+
         } catch (JSONException e) {
             result.setSuccess(false);
             result.setServerMessage(e.getMessage());

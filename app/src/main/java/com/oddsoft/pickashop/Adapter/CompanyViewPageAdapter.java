@@ -42,7 +42,7 @@ public class CompanyViewPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 6;
+        return 5;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.oddsoft.pickashop.Network;
 import android.content.Context;
 
 import com.oddsoft.pickashop.Global.Logger;
+import com.oddsoft.pickashop.Models.CompanyDetails;
 import com.oddsoft.pickashop.Models.Popular;
 import com.oddsoft.pickashop.Models.SearchResult;
 
@@ -43,5 +44,12 @@ public class WebServiceImp implements WebServicesInterface {
         String serverResponse = RestClient.httpPost(url, params);
         Logger.i("serverresponse : " + serverResponse);
         return JsonParser.getSearchResult(serverResponse);
+    }
+
+    @Override
+    public Response<CompanyDetails> getCompnyDetails(String url, String params) throws IOException, JSONException {
+        String serverResponse = RestClient.httpPost(url, params);
+        Logger.i("serverresponse : " + serverResponse);
+        return JsonParser.getDetails(serverResponse);
     }
 }

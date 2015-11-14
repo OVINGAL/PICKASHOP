@@ -1,5 +1,6 @@
 package com.oddsoft.pickashop.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -211,11 +212,16 @@ public class HomeFragment extends Fragment {
 
     private class GetSearchResult extends
             AsyncTask<String, Void, Response<ArrayList<SearchResult>>> {
-
+        ProgressDialog dialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar2.setVisibility(View.VISIBLE);
+//            progressBar2.setVisibility(View.VISIBLE);
+            dialog = new ProgressDialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setMessage("Loading...");
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
         }
 
         @Override
@@ -241,8 +247,8 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Response<ArrayList<SearchResult>> response) {
             super.onPostExecute(response);
-            progressBar2.setVisibility(View.GONE);
-
+//            progressBar2.setVisibility(View.GONE);
+            dialog.dismiss();
             if (response.isSuccess()) {
                 ArrayList<SearchResult> results = response.getResult();
                 if (results.size() > 0) {
