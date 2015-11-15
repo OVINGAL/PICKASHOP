@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.oddsoft.pickashop.Fragments.CompanyContactFragment;
 import com.oddsoft.pickashop.Fragments.CompanyFragment;
+import com.oddsoft.pickashop.Fragments.CompanyOfferFragment;
 import com.oddsoft.pickashop.Fragments.ContactFragment;
-import com.oddsoft.pickashop.Fragments.FaqFragment;
+import com.oddsoft.pickashop.Fragments.GalleryFragment;
+import com.oddsoft.pickashop.Fragments.ProductFragment;
 import com.oddsoft.pickashop.Models.CompanyDetails;
 
 /**
@@ -35,11 +37,11 @@ public class CompanyViewPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return CompanyFragment.newInstance(bundle);
             case 1:
-                return FaqFragment.newInstance();
+                return GalleryFragment.newInstance(bundle);
             case 2:
-                return ContactFragment.newInstance();
+                return ProductFragment.newInstance(bundle);
             case 3:
-                return FaqFragment.newInstance();
+                return CompanyOfferFragment.newInstance(bundle);
             case 4:
                 return CompanyContactFragment.newInstance(bundle);
             case 5:
