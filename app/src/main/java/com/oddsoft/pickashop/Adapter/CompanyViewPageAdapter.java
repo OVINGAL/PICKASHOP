@@ -1,12 +1,15 @@
 package com.oddsoft.pickashop.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.oddsoft.pickashop.Fragments.CompanyFragment;
 import com.oddsoft.pickashop.Fragments.ContactFragment;
 import com.oddsoft.pickashop.Fragments.FaqFragment;
+import com.oddsoft.pickashop.Models.CompanyDetails;
 
 /**
  * Created by afsal on 23/6/15.
@@ -14,18 +17,22 @@ import com.oddsoft.pickashop.Fragments.FaqFragment;
 public class CompanyViewPageAdapter extends FragmentPagerAdapter {
 
     Context mContext;
+    CompanyDetails mCompanyDetails;
 
-    public CompanyViewPageAdapter(FragmentManager fm, Context context) {
+    public CompanyViewPageAdapter(FragmentManager fm, Context context, CompanyDetails companyDetails) {
         super(fm);
         mContext = context;
+        mCompanyDetails = companyDetails;
     }
 
 
     @Override
     public Fragment getItem(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Company", mCompanyDetails);
         switch (position) {
             case 0:
-                return ContactFragment.newInstance();
+                return CompanyFragment.newInstance(bundle);
             case 1:
                 return FaqFragment.newInstance();
             case 2:

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     callIntent.setData(Uri.parse(m));
                     context.startActivity(callIntent);
                 } else if (view.getId() == R.id.comp_phone2) {
-                    String m = "tel:" + results.get(pos).company_phone1;
+                    String m = "tel:" + results.get(pos).company_phone2;
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse(m));
                     context.startActivity(callIntent);
@@ -86,7 +87,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.mtype.setText(results.get(position).company_type);
         try {
             Glide.with(context).load(results.get(position).company_image)
-                    .error(R.drawable.logo)
+                    .error(R.drawable.banner)
+                    .placeholder(R.drawable.banner)
                     .into(holder.mProfileImg);
         } catch (IllegalArgumentException e) {
 
@@ -101,19 +103,20 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     }
 
 
-    public void startDetails(Context context, SearchResult model) {
+    public void startDetails(Context context, SearchResult model, CompanyDetails result) {
         CompanyHomeFragment mCompanyHomeFragment;
         FragmentManager frMng = ((HomeActivity) context).getSupportFragmentManager();
 
-//        Fragment fr = frMng.findFragmentByTag(Constants.COMPANY_HOME_FRAGMENT_TAG);
-//        if (fr != null) {
-//            mCompanyHomeFragment = (CompanyHomeFragment) fr;
-//        } else {
-//            mCompanyHomeFragment = new CompanyHomeFragment();
-//        }
-        mCompanyHomeFragment = new CompanyHomeFragment();
+        Fragment fr = frMng.findFragmentByTag(Constants.COMPANY_HOME_FRAGMENT_TAG);
+        if (fr != null) {
+            mCompanyHomeFragment = (CompanyHomeFragment) fr;
+        } else {
+            mCompanyHomeFragment = new CompanyHomeFragment();
+        }
+//        mCompanyHomeFragment = new CompanyHomeFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("Selected", model);
+        bundle.putSerializable("Company", result);
         mCompanyHomeFragment.setArguments(bundle);
         ((HomeActivity) context).setFragmentOthers(mCompanyHomeFragment, Constants.COMPANY_HOME_FRAGMENT_TAG);
 
@@ -207,7 +210,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             dialog.dismiss();
             if (response.isSuccess()) {
                 CompanyDetails results = response.getResult();
-                startDetails(context, model);
+                startDetails(context, model, results);
             } else {
                 Toast.makeText(context, response.getServerMessage(), Toast.LENGTH_SHORT).show();
             }

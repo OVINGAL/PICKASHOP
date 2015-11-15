@@ -1,11 +1,11 @@
 package com.oddsoft.pickashop.Models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Created by afsal on 14/11/15.
  */
-public class CompanyDetails {
+public class CompanyDetails implements Serializable {
 
 
     /*
@@ -68,7 +68,8 @@ public class CompanyDetails {
     public String district;
     public String state;
     public String country;
-    public ArrayList<String> media;
+    public String banner;
+    public String logo;
 
 
 }

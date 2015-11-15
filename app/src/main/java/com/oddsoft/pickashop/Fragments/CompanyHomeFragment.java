@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.oddsoft.pickashop.Adapter.CompanyViewPageAdapter;
+import com.oddsoft.pickashop.Models.CompanyDetails;
 import com.oddsoft.pickashop.Models.SearchResult;
 import com.oddsoft.pickashop.R;
 import com.oddsoft.pickashop.Widgets.SlidingTabLayout;
@@ -19,6 +20,7 @@ import com.oddsoft.pickashop.Widgets.SlidingTabLayout;
 public class CompanyHomeFragment extends Fragment {
 
     SearchResult mSearch;
+    CompanyDetails mCompany;
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
 
@@ -28,6 +30,7 @@ public class CompanyHomeFragment extends Fragment {
         if (getArguments() != null) {
             Bundle bundle = getArguments();
             mSearch = bundle.getParcelable("Selected");
+            mCompany = (CompanyDetails) bundle.getSerializable("Company");
         }
     }
 
@@ -38,8 +41,8 @@ public class CompanyHomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.company_home_fragment, container, false);
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
-
-        mViewPager.setAdapter(new CompanyViewPageAdapter(getFragmentManager(), getActivity()));
+        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setAdapter(new CompanyViewPageAdapter(getChildFragmentManager(), getActivity(), mCompany));
 
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
@@ -47,8 +50,8 @@ public class CompanyHomeFragment extends Fragment {
         mSlidingTabLayout.setViewPager(mViewPager);
         ImageView logo = (ImageView) rootView.findViewById(R.id.img_avathar_comp);
         try {
-            Glide.with(getActivity()).load(mSearch.company_image)
-                    .error(R.drawable.logo)
+            Glide.with(getActivity()).load(mCompany.banner)
+                    .error(R.drawable.banner)
                     .into(logo);
         } catch (IllegalArgumentException e) {
 

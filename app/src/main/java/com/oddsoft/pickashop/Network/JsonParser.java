@@ -156,6 +156,10 @@ public class JsonParser {
             model.state = jsonObject.getString("state");
             model.country = jsonObject.getString("country");
 
+            jsonObject = json.getJSONObject("media");
+            model.banner = jsonObject.getString("banner");
+            model.logo = jsonObject.getString("logo");
+
             result.setResult(model);
 
         } catch (JSONException e) {

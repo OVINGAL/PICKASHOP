@@ -1,5 +1,7 @@
 package com.oddsoft.pickashop.Fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +29,15 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout_white_bg for this fragment
         View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
+        rootView.findViewById(R.id.contact_phone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String m = "tel:+914846560560";
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse(m));
+                startActivity(callIntent);
+            }
+        });
         return rootView;
     }
 
