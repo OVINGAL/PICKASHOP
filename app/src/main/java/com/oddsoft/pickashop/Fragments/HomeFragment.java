@@ -1,11 +1,17 @@
 package com.oddsoft.pickashop.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,12 +75,6 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         populars = new ArrayList<Popular>();
-//        populars.add(new Popular("Multiplex", "http://pickashop.com/mediafiles/comp-pht-4/basic/logo.jpg"));
-//        populars.add(new Popular("World of Foot Wears", "http://pickashop.com/mediafiles/comp-c2e-2/basic/logo.jpg"));
-//        populars.add(new Popular("Joyson Group", "http://pickashop.com/mediafiles/comp-d2z-1/basic/logo.jpg"));
-//        populars.add(new Popular("Dress World", "http://pickashop.com/images/default/logo1.png"));
-//        populars.add(new Popular("OddSoft", "http://pickashop.com/images/logo.png"));
-//        populars.add(new Popular("Cabot", "http://pickashop.com/images/e2.jpg"));
 
         adapter = new PopularAdapter(populars, getActivity());
         mRecyclerView.setAdapter(adapter);
@@ -164,6 +164,39 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public void checkUpdate() {
+        int currentVersion = 1;
+        try {
+            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            currentVersion = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (currentVersion < HomeActivity.PLAYSTORE_VERSION) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Upgrade");
+            builder.setMessage("Update available, ready to upgrade?");
+            builder.setIcon(R.drawable.pkicon);
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.oddsoft.pickashop"));
+                    getActivity().startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("Nop", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
+        }
+    }
+
     private class GetPopularBrands extends
             AsyncTask<String, Void, Response<ArrayList<Popular>>> {
 
@@ -203,6 +236,7 @@ public class HomeFragment extends Fragment {
                 populars.clear();
                 populars.addAll(response.getResult());
                 adapter.notifyDataSetChanged();
+                checkUpdate();
             } else {
                 Toast.makeText(getActivity(),response.getServerMessage(),Toast.LENGTH_SHORT).show();
             }

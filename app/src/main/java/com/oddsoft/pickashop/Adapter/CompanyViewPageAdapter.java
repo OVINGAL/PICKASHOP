@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.oddsoft.pickashop.Fragments.CompanyContactFragment;
 import com.oddsoft.pickashop.Fragments.CompanyFragment;
 import com.oddsoft.pickashop.Fragments.ContactFragment;
 import com.oddsoft.pickashop.Fragments.FaqFragment;
@@ -40,7 +41,7 @@ public class CompanyViewPageAdapter extends FragmentPagerAdapter {
             case 3:
                 return FaqFragment.newInstance();
             case 4:
-                return ContactFragment.newInstance();
+                return CompanyContactFragment.newInstance(bundle);
             case 5:
                 return ContactFragment.newInstance();
         }

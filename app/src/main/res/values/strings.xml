@@ -3,7 +3,7 @@
 
     <string name="title_section1">HOME</string>
     <string name="title_section2">CONTACT US</string>
-    <string name="title_section3">FAQ</string>
+    <string name="title_section3">CAREERS</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -12,6 +12,5 @@
 
     <string name="action_settings">Advanced search</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

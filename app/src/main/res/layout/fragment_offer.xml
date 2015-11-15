@@ -15,24 +15,25 @@
         android:src="@drawable/logo" />
 
     <TextView
-        android:id="@+id/career_head"
+        android:id="@+id/offer_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
-        android:text="Careers"
+        android:text="Availbale Offers"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/career_head"
+        android:layout_below="@+id/offer_head"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
-        android:text="Current Openings : 0"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="16sp" />
 

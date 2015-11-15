@@ -13,9 +13,13 @@ public class Constants {
 
     public static String CONTACT_FRAGMENT_TAG = "CONTACT Fragment Tag";
 
+    public static String OFFER_FRAGMENT_TAG = "OFFER Fragment Tag";
+
     public static String FAQ_FRAGMENT_TAG = "FAQ Fragment Tag";
 
     public static String SHARED_SEARCH_KEYS = "SEARCH KEYS";
+
+    public static String SHARED_UPDATED_TIME_KEYS = "SEARCH KEYS UPDATE TIME";
 
     public static String SEARCH_FRAGMENT_TAG = "Search Result Fragment Tag";
 

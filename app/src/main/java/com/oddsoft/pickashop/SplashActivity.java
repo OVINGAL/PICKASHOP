@@ -16,6 +16,7 @@ import com.oddsoft.pickashop.Network.webServiceFactory;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 
 public class SplashActivity extends Activity {
@@ -62,8 +63,18 @@ public class SplashActivity extends Activity {
          * Run the code inside the runnable after the display time is finished
          * using a handler
          */
-        new GetSearchKeys().execute(Url.HOME_SEARCH_SGN);
-//        handler.postDelayed(mrun, SPLASH_DISPLAY_LENGTH);
+        Long updateTime = 0L;
+        try {
+            updateTime = Long.parseLong(Utils.getStringSharedPreference(this, Constants.SHARED_UPDATED_TIME_KEYS));
+        } catch (NumberFormatException e) {
+            updateTime = 0L;
+        }
+
+        if (updateTime - Calendar.getInstance().getTimeInMillis() > 1000 * 60 * 60 * 24 * 7) {
+            new GetSearchKeys().execute(Url.HOME_SEARCH_SGN);
+        } else {
+            handler.postDelayed(mrun, 2 * SPLASH_DISPLAY_LENGTH);
+        }
     }
 
     @Override
@@ -109,6 +120,7 @@ public class SplashActivity extends Activity {
             super.onPostExecute(response);
             if (mHandlerFlag) {
                 Utils.setStringSharedPreference(SplashActivity.this, Constants.SHARED_SEARCH_KEYS, response.getResult());
+                Utils.setStringSharedPreference(SplashActivity.this, Constants.SHARED_UPDATED_TIME_KEYS, Calendar.getInstance().getTimeInMillis() + "");
                 handler.postDelayed(mrun, SPLASH_DISPLAY_LENGTH);
             }
         }

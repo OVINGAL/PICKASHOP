@@ -38,6 +38,42 @@ public class ContactFragment extends Fragment {
                 startActivity(callIntent);
             }
         });
+        rootView.findViewById(R.id.contact_mob).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String m = "tel:+91 9447777621";
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse(m));
+                startActivity(callIntent);
+            }
+        });
+        rootView.findViewById(R.id.fb).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String m = "https://www.facebook.com/PickaShop4U";
+                Intent callIntent = new Intent(Intent.ACTION_VIEW);
+                callIntent.setData(Uri.parse(m));
+                startActivity(callIntent);
+            }
+        });
+        rootView.findViewById(R.id.twitter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String m = "https://twitter.com/pickashop4u";
+                Intent callIntent = new Intent(Intent.ACTION_VIEW);
+                callIntent.setData(Uri.parse(m));
+                startActivity(callIntent);
+            }
+        });
+        rootView.findViewById(R.id.gp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String m = "https://plus.google.com/u/0/105782887746110634429";
+                Intent callIntent = new Intent(Intent.ACTION_VIEW);
+                callIntent.setData(Uri.parse(m));
+                startActivity(callIntent);
+            }
+        });
         return rootView;
     }
 

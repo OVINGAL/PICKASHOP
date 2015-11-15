@@ -14,12 +14,13 @@ import android.view.MenuItem;
 import com.oddsoft.pickashop.Fragments.ContactFragment;
 import com.oddsoft.pickashop.Fragments.FaqFragment;
 import com.oddsoft.pickashop.Fragments.HomeFragment;
+import com.oddsoft.pickashop.Fragments.OfferFragment;
 import com.oddsoft.pickashop.Global.Constants;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    public static String PLAYSTORE_VERSION = "";
+    public static int PLAYSTORE_VERSION = 1;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -73,14 +74,14 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case 2:
                 mTitle = "OFFERS";
-                ContactFragment contactFragment1;
-                fr = frMng.findFragmentByTag(Constants.CONTACT_FRAGMENT_TAG);
+                OfferFragment contactFragment1;
+                fr = frMng.findFragmentByTag(Constants.OFFER_FRAGMENT_TAG);
                 if (fr != null) {
-                    contactFragment1 = (ContactFragment) fr;
+                    contactFragment1 = (OfferFragment) fr;
                 } else {
-                    contactFragment1 = new ContactFragment();
+                    contactFragment1 = new OfferFragment();
                 }
-                setFragment(contactFragment1, Constants.CONTACT_FRAGMENT_TAG);
+                setFragment(contactFragment1, Constants.OFFER_FRAGMENT_TAG);
                 break;
             case 3:
                 mTitle = getString(R.string.title_section2);

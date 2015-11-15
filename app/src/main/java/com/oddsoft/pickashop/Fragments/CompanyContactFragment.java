@@ -2,7 +2,6 @@ package com.oddsoft.pickashop.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,12 @@ import com.oddsoft.pickashop.Models.CompanyDetails;
 import com.oddsoft.pickashop.R;
 
 
-public class CompanyFragment extends Fragment {
+public class CompanyContactFragment extends Fragment {
 
     CompanyDetails mCompanyDetails;
 
-    public static CompanyFragment newInstance(Bundle bundle) {
-        CompanyFragment companyFragment = new CompanyFragment();
+    public static CompanyContactFragment newInstance(Bundle bundle) {
+        CompanyContactFragment companyFragment = new CompanyContactFragment();
         companyFragment.setArguments(bundle);
         return companyFragment;
     }
@@ -35,8 +34,8 @@ public class CompanyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout_white_bg for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        ((TextView) rootView.findViewById(R.id.comp_name_fn)).setText(mCompanyDetails.company_name + " - " + mCompanyDetails.company_type);
-        ((TextView) rootView.findViewById(R.id.comp_about)).setText(Html.fromHtml(mCompanyDetails.about));
+        ((TextView) rootView.findViewById(R.id.comp_name_fn)).setVisibility(View.GONE);
+        ((TextView) rootView.findViewById(R.id.comp_about)).setVisibility(View.GONE);
         ((TextView) rootView.findViewById(R.id.comp_phone_fn)).setText(mCompanyDetails.phone1 + " , " + mCompanyDetails.phone2);
         ((TextView) rootView.findViewById(R.id.comp_fax)).setText(mCompanyDetails.fax1 + " , " + mCompanyDetails.fax2);
         ((TextView) rootView.findViewById(R.id.comp_toll)).setText(mCompanyDetails.toll1 + " , " + mCompanyDetails.toll2);

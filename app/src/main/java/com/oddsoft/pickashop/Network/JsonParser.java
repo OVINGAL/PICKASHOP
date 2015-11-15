@@ -43,7 +43,7 @@ public class JsonParser {
                     populars.add(p);
                 }
                 JSONArray versionArray = json.getJSONArray("version");
-                HomeActivity.PLAYSTORE_VERSION = versionArray.getString(0);
+                HomeActivity.PLAYSTORE_VERSION = Integer.parseInt(versionArray.getString(0));
             }
         }catch (JSONException e){
             result.setSuccess(false);
